@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/image/urspi_new.png">
+    <title>International</title>
+    <!-- Custom CSS -->
+    <link href="/css/admin.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<div class="preloader">
+    <div class="lds-ripple">
+        <div class="lds-pos"></div>
+        <div class="lds-pos"></div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="main-wrapper">
+    <!-- ============================================================== -->
+    <!-- Topbar header - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div th:insert="~{parts/header::header}"></div>
+    <!-- ============================================================== -->
+    <!-- End Topbar header -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <div th:insert="~{parts/aside::aside}"></div>
+    <!-- ============================================================== -->
+    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-5 align-self-center">
+                    <h4 class="page-title" th:text="${title}"></h4>
+                </div>
+                <div class="col-7 align-self-center">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/" th:text="Asosiy"></a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page" th:text="${title}"></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-start">
+                                <button type="button" class="btn btn-outline-purple" data-toggle="modal"
+                                        data-target="#createDirectionModal" data-whatever="@mdo"><i class="ti-plus"></i>
+                                    Yo`nalish qo`shish
+                                </button>
+                            </div>
+                            <table class="table table-bordered table-hover mt-4">
+                                <tbody>
+                                <tr class="table-success">
+                                    <th>ID</th>
+                                    <th>Yo`nalish nomi</th>
+                                    <th>Qo`shilgan sana</th>
+                                    <th>O`zgartirilgan sana</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </tbody>
+                                <tr th:each="direction : ${directions}">
+                                    <td th:text="${direction.id}"></td>
+                                    <td th:text="${direction.name}"></td>
+                                    <td th:text="${direction.createdAt.toString().substring(0,10)}"></td>
+                                    <td th:text="${direction.updatedAt.toString().substring(0,10)}"></td>
+                                    <td th:if="${direction.status == 1}">
+                                        <button disabled class="btn btn-outline-success btn-sm" type="button">Active</button>
+                                    </td>
+                                    <td th:unless="${direction.status == 1}">
+                                        <button disabled class="btn btn-outline-danger btn-sm">No Active</button>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{/admin/direction/getOne(id=${direction.id})}" class="ebtn btn btn-outline-orange"><i class="ti-pencil-alt"></i></a>
+                                        <a th:href="@{/admin/direction/remove(id=${direction.id}, status=${direction.status})}" th:classappend="${direction.status==1}?'btn btn-outline-danger':'btn btn-outline-success'"><i th:classappend="${direction.status==1} ? 'ti-trash':'ti-back-right'"></i></a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <div th:insert="~{parts/footer::footer}"></div>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+</div>
+<!--create modal-->
+<div class="modal" id="createDirectionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
+     style="display: none; padding-right: 17px;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Yangi yo`nalish qoshish</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/admin/direction/create" th:object="${direction}">
+                    <div class="form-group">
+                        <label for="category_name" class="control-label">Yo`nalish nomi</label>
+                        <input type="text" class="form-control" id="category_name" th:field="*{name}">
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-outline-purple"><i class="ti-plus"></i> Qo`shish</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end create modal-->
+
+<!--Edit department modal-->
+<div class="modal" id="editDirectionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
+     style="display: none; padding-right: 17px;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel2">Yo`nalishni o`zgartirish </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/admin/position/edit" th:object="${direction}">
+                    <input type="hidden" id="directionId" th:field="*{id}">
+                    <div class="form-group">
+                        <label for="edit_direction_name" class="control-label">Yo`nalish nomi</label>
+                        <input type="text" class="form-control" id="edit_direction_name" th:field="*{name}">
+                    </div>
+                    <input type="hidden"  id="status" th:field="*{status}">
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-outline-orange"><i class="ti-pencil-alt"></i>  O`zgartirish</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- customizer Panel -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="/js/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<!-- apps -->
+<script src="/js/app.min.js"></script>
+<script src="/js/app.init.js"></script>
+<script src="/js/app-style-switcher.js"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="/js/perfect-scrollbar.jquery.min.js"></script>
+<script src="/js/sparkline.js"></script>
+<!--Wave Effects -->
+<script src="/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="/js/custom.min.js"></script>
+<script>
+    $('document').ready(function (){
+        $('.table .ebtn').on('click', function (event){
+            event.preventDefault()
+            let href = $(this).attr('href');
+            $.get(href, function (direction, status){
+                $('#directionIdId').val(direction.id)
+                $('#edit_direction_name').val(direction.name);
+                $('#status').val(direction.status)
+            });
+            $('#editDirectionModal').modal();
+        });
+    });
+</script>
+</body>
+
+</html>

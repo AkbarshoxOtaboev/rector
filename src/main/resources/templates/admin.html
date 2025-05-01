@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/image/urspi_new.png">
+    <title th:text="${title}"></title>
+    <!-- Custom CSS -->
+    <link href="/css/admin.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="preloader">
+    <div class="lds-ripple">
+        <div class="lds-pos"></div>
+        <div class="lds-pos"></div>
+    </div>
+</div>
+
+<div id="main-wrapper">
+    <div th:insert="~{parts/header::header}"></div>
+    <div th:insert="~{parts/aside::aside}"></div>
+    <div class="page-wrapper">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-5 align-self-center">
+                    <h4 class="page-title">Asosiy</h4>
+                </div>
+                <div class="col-7 align-self-center">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Asosiy</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-right border-orange">
+                        <div class="card-body">
+                            <div class="d-flex no-block align-items-center">
+                                <div>
+                                    <span class="text-orange display-6"><i class="ti-id-badge"></i></span>
+                                </div>
+                                <div class="ml-auto text-orange font-weight-bold">
+                                    <h2 th:text="5"></h2>
+                                    <h6>Yangi arizalar</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-right border-dark">
+                        <div class="card-body">
+                            <div class="d-flex no-block align-items-center">
+                                <div>
+                                    <span class="text-dark display-6"><i class="ti-bookmark-alt"></i></span>
+                                </div>
+                                <div class="ml-auto text-dark font-weight-bold">
+                                    <h2 th:text="3"></h2>
+                                    <h6>Ko`rish jarayonida</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-right border-success">
+                        <div class="card-body">
+                            <div class="d-flex no-block align-items-center">
+                                <div>
+                                    <span class="text-success display-6"><i class="ti-save-alt"></i></span>
+                                </div>
+                                <div class="ml-auto text-success font-weight-bold">
+                                    <h2 th:text="8"></h2>
+                                    <h6>Qabul qilinganalr</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-right border-purple">
+                        <div class="card-body">
+                            <div class="d-flex no-block align-items-center">
+                                <div>
+                                    <span class="text-purple display-6"><i class="ti-comment"></i></span>
+                                </div>
+                                <div class="ml-auto text-purple font-weight-bold">
+                                    <h2 th:text="19"></h2>
+                                    <h6>Umumiy arizalar soni</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Arizalar</h4>
+                            <div>
+                                <div class="chartjs-size-monitor"
+                                     style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                                    <div class="chartjs-size-monitor-expand"
+                                         style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                        <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+                                    </div>
+                                    <div class="chartjs-size-monitor-shrink"
+                                         style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                        <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+                                    </div>
+                                </div>
+                                <canvas id="bar-chart" height="379" style="display: block; width: 758px; height: 379px;"
+                                        width="758" class="chartjs-render-monitor"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:insert="~{parts/footer::footer}"></div>
+    </div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<!-- apps -->
+<script src="/js/app.min.js"></script>
+<script src="/js/app.init.js"></script>
+<script src="/js/app-style-switcher.js"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="/js/perfect-scrollbar.jquery.min.js"></script>
+<script src="/js/sparkline.js"></script>
+<!--Wave Effects -->
+<script src="/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="/js/custom.min.js"></script>
+<script src="/js/chartjs.init.js"></script>
+<script src="/js/Chart.min.js"></script>
+</body>
+
+</html>

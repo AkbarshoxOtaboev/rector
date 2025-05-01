@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/image/urspi_new.png">
+    <title>International</title>
+    <!-- Custom CSS -->
+    <link href="/css/admin.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<div class="preloader">
+    <div class="lds-ripple">
+        <div class="lds-pos"></div>
+        <div class="lds-pos"></div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="main-wrapper">
+    <!-- ============================================================== -->
+    <!-- Topbar header - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div th:insert="~{parts/header::header}"></div>
+    <!-- ============================================================== -->
+    <!-- End Topbar header -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <div th:insert="~{parts/aside::aside}"></div>
+    <!-- ============================================================== -->
+    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-5 align-self-center">
+                    <h4 class="page-title" th:text="${title}"></h4>
+                </div>
+                <div class="col-7 align-self-center">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/admin">Asosiy</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="/admin/students">Arizalar</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page" th:text="${title}"></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-start">
+                                <a th:href="@{/admin/change/status(id=${student.id}, status=2)}" class="btn btn-outline-secondary m-2">Qabul qilish </a>
+                                <a th:classappend="${student.status != 2} ? 'disabled'" th:href="@{/admin/change/status(id=${student.id}, status=3)}" class="btn btn-outline-success m-2">Tasdiqlash</a>
+                                <a th:classappend="${student.status != 2} ? 'disabled'" th:href="@{/admin/change/status(id=${student.id}, status=4)}" class="btn btn-outline-danger m-2">Rad qilish</a>
+                            </div>
+                            <div class="row">
+                                <div class="col-7">
+                                    <table class="table table-bordered table-striped">
+                                        <tr class="text-center table-secondary text-dark">
+                                            <th colspan="2" th:text="${student.firstName + ' ' + student.lastName }"></th>
+                                        </tr>
+                                        <tr>
+                                            <th>Ism:</th>
+                                            <td th:text="${student.firstName}"></td>
+
+                                        </tr>
+                                        <tr>
+                                            <th>Familiya:</th>
+                                            <td th:text="${student.lastName}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tugilgan yili:</th>
+                                            <td th:text="${student.birthDate}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Jinsi:</th>
+                                            <td th:text="${student.gender}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email:</th>
+                                            <td th:text="${student.email}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Whatsapp:</th>
+                                            <td th:text="${student.whatsapp}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Telefon raqam:</th>
+                                            <td th:text="${student.phone}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Mamlakat:</th>
+                                            <td th:text="${student.country}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Ta`lim turi:</th>
+                                            <td th:text="${student.studyType}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Ta`lim turi:</th>
+                                            <td th:text="${student.studyDirection}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Passport:</th>
+                                            <td><a th:href="@{'/admin/files/' + ${student.imageLink}}" class="btn btn-outline-dark"><i class="ti-download"></i> Yuklab olish</a></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Diplom yoki sertifikat:</th>
+                                            <td><a th:href="@{'/admin/files/' + ${student.diplomaOrCertificateLink}}" class="btn btn-outline-dark"><i class="ti-download"></i> Yuklab olish</a></td>
+                                        </tr>
+                                        <tr>
+                                            <th>O'zbekistonda yashash guvohnomasining nusxasi:</th>
+                                            <td><a th:href="@{'/admin/files/' + ${student.testimonyFileLink}}" class="btn btn-outline-dark"><i class="ti-download"></i> Yuklab olish</a></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Status:</th>
+                                            <td th:if="${student.status == 1}">
+                                                <button type="button" disabled class="btn btn-outline-info btn-sm">
+                                                    Yangi ariza
+                                                </button>
+                                            </td>
+                                            <td th:if="${student.status == 2}">
+                                                <button type="button" disabled class="btn btn-outline-secondary btn-sm">
+                                                    Ko`rish jarayonida
+                                                </button>
+                                            </td>
+                                            <td th:if="${student.status == 3}">
+                                                <button type="button" disabled class="btn btn-outline-success btn-sm">
+                                                    Qabul qilindi
+                                                </button>
+                                            </td>
+                                            <td th:if="${student.status == 4}">
+                                                <button type="button" disabled class="btn btn-outline-danger btn-sm">
+                                                    Rad qilindi
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:insert="~{parts/footer::footer}"></div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- customizer Panel -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="/js/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<!-- apps -->
+<script src="/js/app.min.js"></script>
+<script src="/js/app.init.js"></script>
+<script src="/js/app-style-switcher.js"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="/js/perfect-scrollbar.jquery.min.js"></script>
+<script src="/js/sparkline.js"></script>
+<!--Wave Effects -->
+<script src="/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="/js/custom.min.js"></script>
+</body>
+
+</html>
