@@ -59,71 +59,69 @@
             <div class="card shadow mb-5">
                 <div class="card-body">
                     <h4 class="card-title text-center mb-4" th:text="#{title}"></h4>
-                    <form>
+                    <form method="post" th:action="@{/application/create}" th:object="${applicationDTO}" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="fio" class="form-label"><span th:text="#{fullName}"></span><span
                                     class="text-danger"> *</span></label>
-                            <input type="text" class="form-control" id="fio" th:placeholder="#{fullNamePlaceholder}"
-                                   required>
+                            <input type="text" class="form-control" id="fio" th:placeholder="#{fullNamePlaceholder}" th:field="*{fullName}" required>
                         </div>
                         <div class="mb-3">
                             <label for="region" class="form-label"><span th:text="#{region}"></span> <span
                                     class="text-danger">*</span></label>
-                            <select class="form-select" id="region" required>
-                                <option selected disabled th:text="#{select}"></option>
+                            <select class="form-select" id="region" required th:field="*{region}">
+                                <option selected disabled th:text="#{select}" value=""></option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="district" class="form-label"><span th:text="#{district}"></span> <span
                                     class="text-danger">*</span></label>
-                            <select class="form-select" id="district" required>
-                                <option selected disabled th:text="#{select}"></option>
+                            <select class="form-select" id="district" required th:field="*{district}">
+                                <option selected disabled th:text="#{select}" value=""></option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label"><span th:text="#{address}"></span><span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="address" th:placeholder="#{addressPlaceholder}"
-                                   required>
+                                   required th:field="*{address}">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label"><span th:text="#{email}"></span><span
                                     class="text-danger">*</span></label>
                             <input type="email" class="form-control" id="email"
-                                   th:placeholder="#{emailPlaceholder}" required>
+                                   th:placeholder="#{emailPlaceholder}" required th:field="*{email}">
                         </div>
                         <div class="mb-3">
                             <label for="mobile" class="form-label"><span th:text="#{mobile}"></span> <span
                                     class="text-danger">*</span></label>
                             <input type="tel" class="form-control" id="mobile" th:placeholder="#{mobilePlaceholder}"
-                                   required>
+                                   required th:field="*{mobile}">
                         </div>
                         <div class="mb-3">
                             <label class="form-label"><span th:text="#{gender}"></span> <span
                                     class="text-danger">*</span></label>
                             <div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gender" id="male" value="Male"
-                                           required>
+                                    <input class="form-check-input" type="radio" name="gender" id="male" value="1"
+                                           required th:field="*{gender}">
                                     <label class="form-check-label" for="male" th:text="#{male}"></label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="gender" id="female"
-                                           value="Female"
-                                           required>
+                                           value="0" required th:field="*{gender}">
                                     <label class="form-check-label" for="female" th:text="#{female}"></label>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="organization">
+                                <input type="checkbox" class="form-check-input" id="organization" >
                                 <label class="form-check-label" for="organization" th:text="#{organization}"></label>
                             </div>
                             <div id="organizationInput" class="mt-2" style="display: none;">
                                 <label for="organizationName"></label>
                                 <input type="text" class="form-control" id="organizationName"
-                                       th:placeholder="#{organizationName}">
+                                       th:placeholder="#{organizationName}" th:field="*{organizationName}">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -132,17 +130,17 @@
                             <div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="applicationType" id="application"
-                                           value="application" required>
+                                           value="1" required th:field="*{typeOfApplication}">
                                     <label class="form-check-label" for="application" th:text="#{application}"></label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="applicationType" id="complaint"
-                                           value="complaint" required>
+                                           value="2" required th:field="*{typeOfApplication}">
                                     <label class="form-check-label" for="complaint" th:text="#{complaint}"></label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="applicationType" id="suggestion"
-                                           value="suggestion" required>
+                                           value="3" required th:field="*{typeOfApplication}">
                                     <label class="form-check-label" for="suggestion" th:text="#{suggestion}"></label>
                                 </div>
                             </div>
@@ -151,11 +149,11 @@
                             <label for="content" class="form-label"><span th:text="#{contentOfApplication}"></span><span
                                     class="text-danger">*</span></label>
                             <textarea class="form-control" id="content" rows="4" th:placeholder="#{contentPlaceholder}"
-                                      required></textarea>
+                                      required th:field="*{contentOfApplication}"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="file" class="form-label" th:text="#{uploadFile}"></label>
-                            <input class="form-control" type="file" id="file">
+                            <input class="form-control" type="file" id="file" th:field="*{fileLink}">
                         </div>
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="offer" required>

@@ -20,7 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             data.regions.forEach(region => {
                 const option = document.createElement("option");
-                option.value = region.id;
+                option.id = region.id
+                option.value = region.name;
                 option.textContent = region.name;
                 regionSelect.appendChild(option);
             });
@@ -40,7 +41,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
     regionSelect.addEventListener('change', () => {
-        const selectedRegionId = parseInt(regionSelect.value);
+        console.log(regionSelect.options.getAttribute("id"))
+        const selectedRegionId = parseInt(regionSelect.options.id);
 
         // Filter villages that belong to selected region
         const filteredVillages = villagesData.filter(village => village.region_id === selectedRegionId);
