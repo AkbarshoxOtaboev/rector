@@ -66,17 +66,23 @@
                             <input type="text" class="form-control" id="fio" th:placeholder="#{fullNamePlaceholder}" th:field="*{fullName}" required>
                         </div>
                         <div class="mb-3">
-                            <label for="region" class="form-label"><span th:text="#{region}"></span> <span
+                            <label for="regions" class="form-label"><span th:text="#{region}"></span> <span
                                     class="text-danger">*</span></label>
-                            <select class="form-select" id="region" required th:field="*{region}">
-                                <option selected disabled th:text="#{select}" value=""></option>
+                            <select class="form-select" id="regions" required th:field="*{region}">
+                                <option value="" th:text="#{select}"></option>
+                                <option th:each="region:${regions}"
+                                        th:value="${region.id}"
+                                        th:name="${region}"
+                                        th:text="${region.name}"
+                                ></option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="district" class="form-label"><span th:text="#{district}"></span> <span
+                            <label for="districts" class="form-label"><span th:text="#{district}"></span> <span
                                     class="text-danger">*</span></label>
-                            <select class="form-select" id="district" required th:field="*{district}">
-                                <option selected disabled th:text="#{select}" value=""></option>
+                            <select class="form-select" id="districts" required th:field="*{district}">
+                                <option value="" th:text="#{select}"></option>
+
                             </select>
                         </div>
                         <div class="mb-3">

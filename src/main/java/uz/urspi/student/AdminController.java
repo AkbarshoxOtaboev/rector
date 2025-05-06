@@ -3,13 +3,16 @@ package uz.urspi.student;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import uz.urspi.student.application.ApplicationDTO;
 import uz.urspi.student.application.ApplicationService;
+import uz.urspi.student.district.District;
+import uz.urspi.student.district.DistrictService;
+import uz.urspi.student.regions.Region;
+import uz.urspi.student.regions.RegionService;
 import uz.urspi.student.user.UserService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("")
@@ -17,10 +20,14 @@ import uz.urspi.student.user.UserService;
 public class AdminController {
     public final UserService userService;
     public final ApplicationService applicationService;
+    public final RegionService regionService;
+    public final DistrictService districtService;
     @GetMapping("/")
     public String index(Model model) {
         ApplicationDTO applicationDTO = new ApplicationDTO();
         model.addAttribute("applicationDTO", applicationDTO);
+        List<Region> regions = regionService.fetchAllRegions();
+        model.addAttribute("regions", regions);
         return "index";
     }
     @GetMapping("/login")
@@ -43,5 +50,9 @@ public class AdminController {
         applicationService.save(applicationDTO);
         return "redirect:/success";
     }
-
+    @GetMapping("/api/districts")
+    @ResponseBody
+    public List<District> fetchByRegionId(@RequestParam("regionId")  Long regionId) {
+        return districtService.getDistrictsByRegion(regionId);
+    }
 }

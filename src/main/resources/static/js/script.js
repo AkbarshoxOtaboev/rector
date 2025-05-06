@@ -9,77 +9,23 @@ function changeLanguage(lang) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const offerCheckbox = document.getElementById('offer');
-    const offerText = document.getElementById('offerText');
-    const regionSelect = document.getElementById("region");
-    const villageSelect = document.getElementById("district");
-    let villagesData = []; // will store villages
-    fetch('/json/villages.json')
+document.getElementById('regions').addEventListener('change', function () {
+    const regionId = this.value;
+    const districtSelect = document.getElementById('districts');
+
+    fetch(`/api/districts?regionId=${regionId}`)
         .then(response => response.json())
         .then(data => {
-            data.regions.forEach(region => {
-                const option = document.createElement("option");
-                option.id = region.id
-                option.value = region.name;
-                option.textContent = region.name;
-                regionSelect.appendChild(option);
+            data.forEach(district => {
+                const option = document.createElement('option');
+                option.value = district;
+                option.name= district
+                option.text = district.name;
+                districtSelect.appendChild(option);
             });
         })
         .catch(error => {
-            console.error('Regions yuklanishida xatolik:', error);
+            console.error('Ошибка загрузки районов:', error);
+            districtSelect.innerHTML = '<option value="">Ошибка загрузки</option>';
         });
-
-    // Load all villages once
-    fetch('/json/villages.json')
-        .then(response => response.json())
-        .then(data => {
-            villagesData = data.districts;
-        })
-        .catch(error => {
-            console.error('Villages yuklanishida xatolik:', error);
-        });
-
-    regionSelect.addEventListener('change', () => {
-        console.log(regionSelect.options.getAttribute("id"))
-        const selectedRegionId = parseInt(regionSelect.options.id);
-
-        // Filter villages that belong to selected region
-        const filteredVillages = villagesData.filter(village => village.region_id === selectedRegionId);
-
-        // Add villages to dropdown
-        filteredVillages.forEach(village => {
-            const option = document.createElement("option");
-            option.value = village.id;
-            option.textContent = village.name;
-            villageSelect.appendChild(option);
-        });
-    });
-
-
-    offerCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-            offerText.style.display = 'block';
-        } else {
-            offerText.style.display = 'none';
-        }
-    });
-
-
-    const organizationCheckbox = document.getElementById('organization');
-    const organizationInput = document.getElementById('organizationInput');
-    const organizationNameInput = document.getElementById('organizationName');
-
-    organizationCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-            organizationInput.style.display = 'block';
-            organizationNameInput.setAttribute('required', 'required');
-        } else {
-            organizationInput.style.display = 'none';
-            organizationInput.removeAttribute('required');
-            organizationNameInput.value = '';
-        }
-    });
-
-
 });

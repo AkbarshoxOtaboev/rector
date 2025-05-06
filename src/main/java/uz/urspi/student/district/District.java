@@ -18,7 +18,6 @@ public class District {
     @Id
     private Long id;
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "region_id")
-    private Region region;
+
+    private Long regionId;
 }

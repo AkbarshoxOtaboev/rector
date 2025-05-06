@@ -30,14 +30,14 @@ public class DataLoader implements CommandLineRunner {
         JsonNode root = mapper.readTree(jsonFile);
         // Load Regions
         RegionDTO[] regionDTOs = mapper.treeToValue(root.get("regions"), RegionDTO[].class);
-        Map<Long, Region> regionMap = new HashMap<>();
+        List<Region> regions = new ArrayList<>();
         for (RegionDTO dto : regionDTOs) {
             Region region = new Region();
             region.setId(dto.id);
             region.setName(dto.name);
-            regionMap.put(dto.id,region);
+            regions.add(region);
         }
-        regionRepository.saveAll(regionMap.values());
+        regionRepository.saveAll(regions);
 
         // Load Districts
         DistrictDTO[] districtDTOs = mapper.treeToValue(root.get("districts"), DistrictDTO[].class);
@@ -46,7 +46,7 @@ public class DataLoader implements CommandLineRunner {
             District district = new District();
             district.setId(dto.id);
             district.setName(dto.name);
-            district.setRegion(regionMap.get(dto.region_id));
+            district.setRegionId(dto.region_id);
             districts.add(district);
         }
         districtRepository.saveAll(districts);
