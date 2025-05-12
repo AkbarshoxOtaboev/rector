@@ -2,23 +2,45 @@ package uz.urspi.student.application;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import uz.urspi.student.ApplicationAnswer;
+import uz.urspi.student.district.DistrictService;
+import uz.urspi.student.regions.RegionService;
 import uz.urspi.student.storage.StorageService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
 @RequiredArgsConstructor
 public class ApplicationServiceImplement implements ApplicationService {
     private final ApplicationRepository applicationRepository;
+    private final RegionService regionService;
+    private final DistrictService districtService;
     private final StorageService storageService;
     @Override
-    public Page<Application> fetchAllApplications(Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "id");
-        return applicationRepository.findAll(pageable);
+    public Page<ApplicationViewDTO> fetchAllApplications(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, "status");
+        Page<Application> applicationsPage = applicationRepository.findAll(pageable);
+
+        List<ApplicationViewDTO> dtos = applicationsPage.getContent().stream()
+                .map(application -> ApplicationViewDTO.builder()
+                        .id(application.getId())
+                        .uniqueNumber(application.getUniqueNumber())
+                        .name(application.getFullName())
+                        .region(regionService.fetchRegionById(Long.parseLong(application.getRegion())).getName())
+                        .district(districtService.getDistrictById(Long.parseLong(application.getDistrict())).getName())
+                        .mobile(application.getMobile())
+                        .typeOfApplication(application.getTypeOfApplication())
+                        .gender("1".equals(application.getGender()) ? "Erkak" : "Ayol")
+                        .status(application.getStatus())
+                        .build()
+                ).toList();
+
+        return new PageImpl<>(dtos, pageable, applicationsPage.getTotalElements());
     }
 
     @Override
@@ -73,7 +95,43 @@ public class ApplicationServiceImplement implements ApplicationService {
     }
 
     @Override
-    public Application findByUniqueNumber(String uniqueNumber) {
-        return null;
+    public ApplicationViewDTO findByUniqueNumber(String uniqueNumber) {
+        Application application = applicationRepository.findByUniqueNumber(uniqueNumber);
+        var dto = ApplicationViewDTO.builder()
+                .id(application.getId())
+                .uniqueNumber(application.getUniqueNumber())
+                .name(application.getFullName())
+                .region(regionService.fetchRegionById(Long.parseLong(application.getRegion())).getName())
+                .district(districtService.getDistrictById(Long.parseLong(application.getDistrict())).getName())
+                .address(application.getAddress())
+                .email(application.getEmail())
+                .mobile(application.getMobile())
+                .gender("1".equals(application.getGender()) ? "Erkak" : "Ayol")
+                .typeOfApplication(application.getTypeOfApplication())
+                .organizationName(application.getOrganizationName())
+                .contentText(application.getContentOfApplication())
+                .comment(application.getComment())
+                .fileLink(application.getFileLink())
+                .status(application.getStatus())
+                .build();
+        return dto;
+    }
+
+    @Override
+    public void changeStatus(String uniqueNumber, Integer status, ApplicationAnswer answer) {
+        Application application = applicationRepository.findByUniqueNumber(uniqueNumber);
+        if(status.equals(0)){
+            application.setStatus(1);
+            application.setComment(answer.getComment());
+            applicationRepository.save(application);
+        }else if(status.equals(2)){
+            application.setStatus(2);
+            application.setComment(answer.getComment());
+            applicationRepository.save(application);
+        }else if(status.equals(3)){
+            application.setStatus(3);
+            application.setComment(answer.getComment());
+            applicationRepository.save(application);
+        }
     }
 }

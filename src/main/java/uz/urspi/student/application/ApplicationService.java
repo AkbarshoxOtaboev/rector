@@ -1,13 +1,17 @@
 package uz.urspi.student.application;
 
 import org.springframework.data.domain.Page;
+import uz.urspi.student.ApplicationAnswer;
+
+import java.util.List;
 
 public interface ApplicationService {
-    Page<Application> fetchAllApplications(Integer page, Integer size);
+    Page<ApplicationViewDTO> fetchAllApplications(Integer page, Integer size);
     Application fetchApplicationById(Long id);
     void save(ApplicationDTO applicationDTO);
     void update(String comment , Long id);
     void delete(Long id);
     boolean existsByUniqueNumber(String uniqueNumber);
-    Application findByUniqueNumber(String uniqueNumber);
+    ApplicationViewDTO findByUniqueNumber(String uniqueNumber);
+    void changeStatus(String uniqueNumber, Integer status, ApplicationAnswer answer);
 }

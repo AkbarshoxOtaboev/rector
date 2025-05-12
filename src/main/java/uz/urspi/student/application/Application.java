@@ -30,9 +30,9 @@ public class Application {
     private String district;
     @Column(nullable = false)
     private String address;
-    @Column(nullable = false, unique = true)
+   @Column(nullable = false)
     private String email;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String mobile;
     @Column(nullable = false)
     private String gender;

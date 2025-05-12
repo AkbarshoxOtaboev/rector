@@ -60,7 +60,7 @@
                             <table class="table table-bordered table-striped mb-3 table-hover">
                                 <thead>
                                 <tr>
-                                    <th>№</th>
+                                    <th>Ariza raqami</th>
                                     <th>F.I.O</th>
                                     <th>Viloyat</th>
                                     <th>Shahar yoki tuman</th>
@@ -73,15 +73,34 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="app, iterStat : ${applications}">
-                                    <td th:text="${iterStat.index + 1}"></td>
-                                    <td th:text="${app.fullName}"></td>
+                                    <td th:text="${app.uniqueNumber}"></td>
+                                    <td th:text="${app.name}"></td>
                                     <td th:text="${app.region}"></td>
                                     <td th:text="${app.district}"></td>
                                     <td th:text="${app.mobile}"></td>
-                                    <td th:text="${app.typeOfApplication}"></td>
+                                    <td th:if="${app.typeOfApplication=='1'}">
+                                        <button disabled class="btn btn-outline-orange">Ariza</button>
+                                    </td>
+                                    <td th:if="${app.typeOfApplication=='2'}">
+                                        <button disabled class="btn btn-outline-danger">Shikoyat</button>
+                                    </td>
+                                    <td th:if="${app.typeOfApplication=='3'}">
+                                        <button disabled class="btn btn-outline-success">Taklif</button>
+                                    </td>
                                     <td th:text="${app.gender}"></td>
-                                    <td th:text="${app.status}"></td>
-                                    <td><a th:href="@{/admin/application/${app.id}}" class="btn btn-outline-primary"> <i class="ti-eye"></i></a></td>
+                                    <td th:if="${app.status == 0}">
+                                        <button disabled class="btn btn-orange">Yangi</button>
+                                    </td>
+                                    <td th:if="${app.status == 1}">
+                                        <button disabled class="btn btn-secondary">Ko`rish jarayonida</button>
+                                    </td>
+                                    <td th:if="${app.status == 2}">
+                                        <button disabled class="btn btn-success">Qabul qilingan</button>
+                                    </td>
+                                    <td th:if="${app.status == 3}">
+                                        <button disabled class="btn btn-danger">Rad qilingan</button>
+                                    </td>
+                                    <td><a th:href="@{'/admin/application/info/'+${app.uniqueNumber}}" class="btn btn-outline-primary"> <i class="ti-eye"></i></a></td>
                                 </tr>
                                 </tbody>
                             </table>

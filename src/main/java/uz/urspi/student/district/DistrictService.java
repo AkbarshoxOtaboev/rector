@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface DistrictService {
     List<District> getDistrictsByRegion(Long regionId);
+    District getDistrictById(Long id);
 }

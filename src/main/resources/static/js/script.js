@@ -18,8 +18,7 @@ document.getElementById('regions').addEventListener('change', function () {
         .then(data => {
             data.forEach(district => {
                 const option = document.createElement('option');
-                option.value = district;
-                option.name= district
+                option.value = district.id;
                 option.text = district.name;
                 districtSelect.appendChild(option);
             });

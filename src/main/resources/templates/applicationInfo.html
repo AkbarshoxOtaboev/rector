@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/image/urspi_new.png">
+    <title th:text="${title}"></title>
+    <!-- Custom CSS -->
+    <link href="/css/admin.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="preloader">
+    <div class="lds-ripple">
+        <div class="lds-pos"></div>
+        <div class="lds-pos"></div>
+    </div>
+</div>
+<div id="main-wrapper">
+    <div th:insert="~{parts/header::header}"></div>
+    <div th:insert="~{parts/aside::aside}"></div>
+    <div class="page-wrapper">
+
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-5 align-self-center">
+                    <h4 class="page-title" th:text="${title}"></h4>
+                </div>
+                <div class="col-7 align-self-center">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/admin">Asosiy</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="/admin/application">Arizalar</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page" th:text="${title}"></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-start mb-3">
+                                <button class="btn btn-outline-secondary mr-3" data-toggle="modal"
+                                        th:disabled="${app.status == 2 or app.status == 3}"
+                                        th:hidden="${app.status == 1} "
+                                        data-target="#createAnswerModal1" data-whatever="@mdo"><i
+                                        class="ti-eye"></i> Ko`rishga qabul qilish
+                                </button>
+                                <button class="btn btn-outline-success mr-3" data-toggle="modal"
+                                        th:disabled="${app.status == 2 or app.status == 3}"
+                                        th:hidden="${app.status==0}"
+                                        data-target="#createAnswerModal2" data-whatever="@mdo"><i
+                                        class="ti-check"></i> Tasdiqlash
+                                </button>
+                                <button class="btn btn-outline-danger mr-3" data-toggle="modal"
+                                        th:disabled="${app.status == 2 or app.status == 3}"
+                                        data-target="#createAnswerModal3" data-whatever="@mdo"><i
+                                        class="ti-na"></i> Rad qilish
+                                </button>
+                                <!--                                <a th:href="@{/admin/change/status(id=${app.id}, status=1)}"-->
+                                <!--                                   class="btn btn-outline-secondary m-2">Ko`rishga qabul qilish </a>-->
+                                <!--                                <a th:classappend="${app.status != 2} ? 'disabled'"-->
+                                <!--                                   th:href="@{/admin/change/status(id=${app.id}, status=2)}"-->
+                                <!--                                   class="btn btn-outline-success m-2">Tasdiqlash</a>-->
+                                <!--                                <a th:classappend="${app.status != 2} ? 'disabled'"-->
+                                <!--                                   th:href="@{/admin/change/status(id=${app.id}, status=3)}"-->
+                                <!--                                   class="btn btn-outline-danger m-2">Rad qilish</a>-->
+                            </div>
+                            <div class="row">
+                                <div class="col-9">
+                                    <table class="table table-bordered table-striped">
+                                        <tr class="text-center table-secondary text-dark">
+                                            <th colspan="2" th:text="${app.name}"></th>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 300px">Ariza raqami:</th>
+                                            <td th:text="${app.uniqueNumber}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Viloyat:</th>
+                                            <td th:text="${app.region}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tuman:</th>
+                                            <td th:text="${app.district}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Manzil:</th>
+                                            <td th:text="${app.address}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email:</th>
+                                            <td th:text="${app.email}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Telefon raqam:</th>
+                                            <td th:text="${app.mobile}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tashkilot nomi:</th>
+                                            <td th:text="${app.organizationName}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Jinsi:</th>
+                                            <td th:text="${app.gender}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Ariza turi:</th>
+                                            <th th:if="${app.typeOfApplication =='1'}">
+                                                <button disabled class="btn btn-outline-orange">Ariza</button>
+                                            </th>
+                                            <th th:if="${app.typeOfApplication =='2'}">
+                                                <button disabled class="btn btn-outline-danger">Shikoyat</button>
+                                            </th>
+                                            <th th:if="${app.typeOfApplication =='3'}">
+                                                <button disabled class="btn btn-outline-success">Taklif</button>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th>Murojat mazmuni:</th>
+                                            <td th:text="${app.contentText}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Murojat fayli:</th>
+                                            <td th:if="${app.fileLink != 'no_image.png'}"><a
+                                                    th:href="@{'/admin/files/' + ${app.fileLink}}"
+                                                    class="btn btn-outline-dark"><i class="ti-import"></i> Yuklab
+                                                olish</a>
+                                            </td>
+                                            <td th:unless="${app.fileLink != 'no_image.png'}">
+                                                <button disabled class="btn btn-outline-secondary">Fayl yuklanmagan
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Status:</th>
+                                            <td th:if="${app.status == 0}">
+                                                <button type="button" disabled class="btn btn-outline-orange btn-sm">
+                                                    Yangi ariza
+                                                </button>
+                                            </td>
+                                            <td th:if="${app.status == 1}">
+                                                <button type="button" disabled class="btn btn-outline-secondary btn-sm">
+                                                    Ko`rish jarayonida
+                                                </button>
+                                            </td>
+                                            <td th:if="${app.status == 2}">
+                                                <button type="button" disabled class="btn btn-outline-success btn-sm">
+                                                    Qabul qilindi
+                                                </button>
+                                            </td>
+                                            <td th:if="${app.status == 3}">
+                                                <button type="button" disabled class="btn btn-outline-danger btn-sm">
+                                                    Rad qilindi
+                                                </button>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <th> Javob: </th>
+                                            <td th:text="${app.comment}"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:insert="~{parts/footer::footer}"></div>
+    </div>
+</div>
+<!--answer modals start-->
+<div class="modal" id="createAnswerModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
+     style="display: none; padding-right: 17px;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Ko`rishga qabul qilish</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" th:action="@{'/admin/change/status/'+${app.uniqueNumber}(status = 0)}"
+                      th:object="${answer}">
+                    <div class="form-group">
+                        <label for="name1" class="control-label">Murojatga javob</label>
+                        <input type="text" class="form-control" name="comment" id="name1" th:field="*{comment}"
+                               required>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Ko`rishga qabul qilish</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="createAnswerModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
+     style="display: none; padding-right: 17px;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel2">Tasdiqlash</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" th:action="@{'/admin/change/status/'+${app.uniqueNumber}(status = 2)}"
+                      th:object="${answer}">
+                    <div class="form-group">
+                        <label for="name2" class="control-label">Murojatga javob</label>
+                        <input type="text" class="form-control" name="comment" id="name2" th:field="*{comment}"
+                               required>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-success">Murojatni tasdiqlash</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="createAnswerModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3"
+     style="display: none; padding-right: 17px;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel3">Rad qilish</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" th:action="@{'/admin/change/status/'+${app.uniqueNumber}(status = 3)}"
+                      th:object="${answer}">
+                    <div class="form-group">
+                        <label for="name3" class="control-label">Murojatga javob</label>
+                        <input type="text" class="form-control" name="comment" id="name3" th:field="*{comment}"
+                               required>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-danger">Murojatni rad qilish</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--answer modals end-->
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- customizer Panel -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="/js/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<!-- apps -->
+<script src="/js/app.min.js"></script>
+<script src="/js/app.init.js"></script>
+<script src="/js/app-style-switcher.js"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="/js/perfect-scrollbar.jquery.min.js"></script>
+<script src="/js/sparkline.js"></script>
+<!--Wave Effects -->
+<script src="/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="/js/custom.min.js"></script>
+</body>
+
+</html>

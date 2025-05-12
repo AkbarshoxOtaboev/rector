@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface DistrictRepository extends JpaRepository<District, Long> {
     List<District> findDistrictByRegionId(Long regionId);
+
+    District findDistrictById(Long id);
 }

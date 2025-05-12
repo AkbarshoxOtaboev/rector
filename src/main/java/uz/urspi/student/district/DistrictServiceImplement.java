@@ -14,4 +14,9 @@ public class DistrictServiceImplement implements DistrictService {
     public List<District> getDistrictsByRegion(Long regionId) {
         return districtRepository.findDistrictByRegionId(regionId);
     }
+
+    @Override
+    public District getDistrictById(Long id) {
+        return districtRepository.findDistrictById(id);
+    }
 }
