@@ -1,6 +1,7 @@
 package uz.urspi.student;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +45,12 @@ public class AdminController {
         InfoDTO status= applicationService.fetchStatusInfo();
         model.addAttribute("status", status);
         return "admin";
+    }
+
+    @GetMapping("/admin/status")
+    @ResponseBody
+    public ResponseEntity<InfoDTO> adminStatus() {
+        return ResponseEntity.ok(applicationService.fetchStatusInfo());
     }
     @GetMapping("/success")
     public String success() {return "success";}

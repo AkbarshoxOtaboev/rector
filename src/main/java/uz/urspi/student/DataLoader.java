@@ -13,6 +13,7 @@ import uz.urspi.student.regions.RegionDTO;
 import uz.urspi.student.regions.RegionRepository;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +27,10 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        File jsonFile = new File("src/main/resources/static/json/villages.json");
-        JsonNode root = mapper.readTree(jsonFile);
+        InputStream inputStream = getClass().getClassLoader()
+                .getResourceAsStream("static/json/villages.json");
+//        File jsonFile = new File("src/main/resources/static/js/villages.json");
+        JsonNode root = mapper.readTree(inputStream);
         // Load Regions
         RegionDTO[] regionDTOs = mapper.treeToValue(root.get("regions"), RegionDTO[].class);
         List<Region> regions = new ArrayList<>();
