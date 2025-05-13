@@ -38,24 +38,12 @@
                 <div class="col-5 align-self-center">
                     <h4 class="page-title">Asosiy</h4>
                 </div>
-                <!--                <div class="col-7 align-self-center">-->
-                <!--                    <div class="d-flex align-items-center justify-content-end">-->
-                <!--                        <nav aria-label="breadcrumb">-->
-                <!--                            <ol class="breadcrumb">-->
-                <!--                                <li class="breadcrumb-item">-->
-                <!--                                    <a href="#">Asosiy</a>-->
-                <!--                                </li>-->
-                <!--                                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>-->
-                <!--                            </ol>-->
-                <!--                        </nav>-->
-                <!--                    </div>-->
-                <!--                </div>-->
             </div>
         </div>
         <div class="container-fluid">
 
             <div class="row">
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-2 col-md-4">
                     <div class="card border-right border-orange">
                         <div class="card-body">
                             <div class="d-flex no-block align-items-center">
@@ -63,14 +51,14 @@
                                     <span class="text-orange display-6"><i class="ti-id-badge"></i></span>
                                 </div>
                                 <div class="ml-auto text-orange font-weight-bold">
-                                    <h2 th:text="5"></h2>
+                                    <h2 th:text="${status.newApplicationCount}"></h2>
                                     <h6>Yangi arizalar</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-2 col-md-4">
                     <div class="card border-right border-dark">
                         <div class="card-body">
                             <div class="d-flex no-block align-items-center">
@@ -78,14 +66,14 @@
                                     <span class="text-dark display-6"><i class="ti-bookmark-alt"></i></span>
                                 </div>
                                 <div class="ml-auto text-dark font-weight-bold">
-                                    <h2 th:text="3"></h2>
+                                    <h2 th:text="${status.inProgressApplicationCount}"></h2>
                                     <h6>Ko`rish jarayonida</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-2 col-md-4">
                     <div class="card border-right border-success">
                         <div class="card-body">
                             <div class="d-flex no-block align-items-center">
@@ -93,14 +81,14 @@
                                     <span class="text-success display-6"><i class="ti-save-alt"></i></span>
                                 </div>
                                 <div class="ml-auto text-success font-weight-bold">
-                                    <h2 th:text="8"></h2>
-                                    <h6>Qabul qilinganalr</h6>
+                                    <h2 th:text="${status.completedApplicationCount}"></h2>
+                                    <h6>Qabul qilinganlarr</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-2 col-md-4">
                     <div class="card border-right border-danger">
                         <div class="card-body">
                             <div class="d-flex no-block align-items-center">
@@ -108,8 +96,23 @@
                                     <span class="text-danger display-6"><i class="ti-na"></i></span>
                                 </div>
                                 <div class="ml-auto text-danger font-weight-bold">
-                                    <h2 th:text="19"></h2>
+                                    <h2 th:text="${status.rejectedApplicationCount}"></h2>
                                     <h6>Rad qilinganlar</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-8">
+                    <div class="card border-right border-purple">
+                        <div class="card-body">
+                            <div class="d-flex no-block align-items-center">
+                                <div>
+                                    <span class="text-purple display-6"><i class="ti-comment"></i></span>
+                                </div>
+                                <div class="ml-auto text-purple font-weight-bold">
+                                    <h2 th:text="${status.allApplicationCount}" class="text-end"></h2>
+                                    <h6>Umumiy arizalar soni</h6>
                                 </div>
                             </div>
                         </div>
@@ -117,7 +120,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-8">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Arizalar</h4>
@@ -139,17 +142,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="card border-right border-purple">
+                <div class="col-lg-4">
+                    <div class="card">
                         <div class="card-body">
-                            <div class="d-flex no-block align-items-center">
-                                <div>
-                                    <span class="text-purple display-6"><i class="ti-comment"></i></span>
-                                </div>
-                                <div class="ml-auto text-purple font-weight-bold">
-                                    <h2 th:text="7"></h2>
-                                    <h6>Umumiy arizalar soni</h6>
-                                </div>
+                            <h4 class="card-title">Arizalar kesimida statistika</h4>
+                            <div><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                                <canvas id="pie-chart" height="379" width="758" style="display: block; width: 758px; height: 379px;" class="chartjs-render-monitor"></canvas>
                             </div>
                         </div>
                     </div>

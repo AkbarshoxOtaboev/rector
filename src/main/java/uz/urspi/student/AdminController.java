@@ -8,6 +8,7 @@ import uz.urspi.student.application.ApplicationDTO;
 import uz.urspi.student.application.ApplicationService;
 import uz.urspi.student.district.District;
 import uz.urspi.student.district.DistrictService;
+import uz.urspi.student.dto.InfoDTO;
 import uz.urspi.student.regions.Region;
 import uz.urspi.student.regions.RegionService;
 import uz.urspi.student.user.UserService;
@@ -40,6 +41,8 @@ public class AdminController {
         var user = userService.getCurrentUser();
         model.addAttribute("user", user);
         model.addAttribute("title", "Admin");
+        InfoDTO status= applicationService.fetchStatusInfo();
+        model.addAttribute("status", status);
         return "admin";
     }
     @GetMapping("/success")

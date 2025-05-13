@@ -5,12 +5,11 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
-import uz.urspi.student.ApplicationAnswer;
 import uz.urspi.student.district.DistrictService;
+import uz.urspi.student.dto.InfoDTO;
 import uz.urspi.student.regions.RegionService;
 import uz.urspi.student.storage.StorageService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -133,5 +132,17 @@ public class ApplicationServiceImplement implements ApplicationService {
             application.setComment(answer.getComment());
             applicationRepository.save(application);
         }
+    }
+
+    @Override
+    public InfoDTO fetchStatusInfo() {
+        Object[] status = applicationRepository.applicationsCountByStatues().get(0);
+        return new InfoDTO(
+                ((Number) status[0]).intValue(),
+                ((Number) status[1]).intValue(),
+                ((Number) status[2]).intValue(),
+                ((Number) status[3]).intValue(),
+                ((Number) status[4]).intValue()
+        );
     }
 }

@@ -1,9 +1,7 @@
 package uz.urspi.student.application;
 
 import org.springframework.data.domain.Page;
-import uz.urspi.student.ApplicationAnswer;
-
-import java.util.List;
+import uz.urspi.student.dto.InfoDTO;
 
 public interface ApplicationService {
     Page<ApplicationViewDTO> fetchAllApplications(Integer page, Integer size);
@@ -14,4 +12,5 @@ public interface ApplicationService {
     boolean existsByUniqueNumber(String uniqueNumber);
     ApplicationViewDTO findByUniqueNumber(String uniqueNumber);
     void changeStatus(String uniqueNumber, Integer status, ApplicationAnswer answer);
+    InfoDTO fetchStatusInfo();
 }

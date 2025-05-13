@@ -25,4 +25,26 @@ $(function (){
             }
         }
     });
+
+    new Chart(document.getElementById("pie-chart"), {
+        type: 'pie',
+        data: {
+            labels: ["Yangi", "Jarayonda", "Qabul qilganlar", "Rad qilinganlar"],
+            datasets: [
+                {
+                    label: "Population (millions)",
+                    backgroundColor: ["#fb9518", "#473a40","#5cc148","#fa5c4e",
+                        "#e40503"],
+                    data: [2,1,2,3]
+                }
+            ]
+        },
+        options: {
+            title: {
+                display: true,
+                text: ''
+            }
+        }
+    });
+
 })

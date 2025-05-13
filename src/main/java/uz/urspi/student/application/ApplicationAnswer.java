@@ -1,4 +1,4 @@
-package uz.urspi.student;
+package uz.urspi.student.application;
 
 import lombok.Data;
 
