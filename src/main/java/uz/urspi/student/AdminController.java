@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import uz.urspi.student.application.Application;
 import uz.urspi.student.application.ApplicationDTO;
 import uz.urspi.student.application.ApplicationService;
 import uz.urspi.student.district.District;
@@ -57,8 +59,8 @@ public class AdminController {
 
     @PostMapping("/application/create")
     public String createApplication(@ModelAttribute("applicationDTO") ApplicationDTO applicationDTO) {
-        applicationService.save(applicationDTO);
-        return "redirect:/success";
+        Application application = applicationService.save(applicationDTO);
+        return "redirect:/success?number="+application.getUniqueNumber();
     }
     @GetMapping("/api/districts")
     @ResponseBody

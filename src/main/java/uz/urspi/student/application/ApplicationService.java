@@ -6,7 +6,7 @@ import uz.urspi.student.dto.InfoDTO;
 public interface ApplicationService {
     Page<ApplicationViewDTO> fetchAllApplications(Integer page, Integer size);
     Application fetchApplicationById(Long id);
-    void save(ApplicationDTO applicationDTO);
+    Application save(ApplicationDTO applicationDTO);
     void update(String comment , Long id);
     void delete(Long id);
     boolean existsByUniqueNumber(String uniqueNumber);

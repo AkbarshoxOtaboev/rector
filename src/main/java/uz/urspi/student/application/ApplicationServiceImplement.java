@@ -56,7 +56,7 @@ public class ApplicationServiceImplement implements ApplicationService {
     }
     @Override
     @Transactional
-    public void save(ApplicationDTO applicationDTO) {
+    public Application save(ApplicationDTO applicationDTO) {
         Application application = Application.builder()
                 .fullName(applicationDTO.getFullName())
                 .region(applicationDTO.getRegion())
@@ -73,6 +73,7 @@ public class ApplicationServiceImplement implements ApplicationService {
                 .status(0)
                 .build();
         applicationRepository.save(application);
+        return application;
     }
 
     @Override
