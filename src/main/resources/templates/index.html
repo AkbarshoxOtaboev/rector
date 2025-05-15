@@ -49,7 +49,33 @@
                     </li>
                 </ul>
             </div>
-            <button type="button" class="btn btn-outline-primary btn-md" th:text="#{checkBtn}"></button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Arizani tekshirish
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Arizani tekshirish</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="get" th:action="@{/application/check}">
+                                <div class="form-group">
+                                    <label for="number" class="control-label">Murojatga raqamini kiriting</label>
+                                    <input type="text" class="form-control mt-1" name="number" id="number" required>
+                                </div>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <button type="submit" class="btn btn-primary">Tekshirish</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </nav>

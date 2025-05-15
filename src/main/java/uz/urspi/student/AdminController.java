@@ -9,6 +9,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uz.urspi.student.application.Application;
 import uz.urspi.student.application.ApplicationDTO;
 import uz.urspi.student.application.ApplicationService;
+import uz.urspi.student.application.ApplicationViewDTO;
 import uz.urspi.student.district.District;
 import uz.urspi.student.district.DistrictService;
 import uz.urspi.student.dto.InfoDTO;
@@ -61,6 +62,13 @@ public class AdminController {
     public String createApplication(@ModelAttribute("applicationDTO") ApplicationDTO applicationDTO) {
         Application application = applicationService.save(applicationDTO);
         return "redirect:/success?number="+application.getUniqueNumber();
+    }
+
+    @GetMapping("/application/check")
+    public String checkApplication(@RequestParam("number") String number, Model model) {
+        ApplicationViewDTO application = applicationService.findByUniqueNumber(number);
+        model.addAttribute("application", application);
+        return "check";
     }
     @GetMapping("/api/districts")
     @ResponseBody
