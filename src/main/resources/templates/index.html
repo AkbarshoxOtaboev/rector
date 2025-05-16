@@ -63,15 +63,20 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form method="get" th:action="@{/application/check}">
+<!--                            <form method="get" th:action="@{/application/check}">-->
                                 <div class="form-group">
                                     <label for="number" class="control-label">Murojatga raqamini kiriting</label>
                                     <input type="text" class="form-control mt-1" name="number" id="number" required>
                                 </div>
                                 <div class="d-flex justify-content-end mt-2">
-                                    <button type="submit" class="btn btn-primary">Tekshirish</button>
+                                    <button type="button" onclick="checkApp()" class="btn btn-primary">Tekshirish</button>
                                 </div>
-                            </form>
+<!--                            </form>-->
+                        </div>
+                        <div class="modal-footer">
+                            <div id="status"></div>
+                            <br>
+                            <div id="comment"></div>
                         </div>
                     </div>
                 </div>
@@ -249,5 +254,27 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/script.js"></script>
+<script>
+    function checkApp(){
+        const number = document.getElementById('number').value;
+        const status = document.getElementById('status');
+        const comment = document.getElementById('comment');
+
+        fetch('/application/check?number=' + number)
+            .then(response => response.json())
+            .then(data => {
+                if (data === null) {
+                    status.innerHTML=`<button class="btn btn-danger" disabled> Bunday raqamli ariza topilmadi </button>`
+                }
+                 if(data.status === 0){status.innerHTML=`<button class="btn btn-warning" disabled> Yangi ariza </button>`}
+                 if(data.status === 1){status.innerHTML=`<button class="btn btn-secondary" disabled> Ko'rish jarayonida </button>`}
+                 if(data.status === 2){status.innerHTML=`<button class="btn btn-success" disabled> Qabul qilindi </button>`}
+                 if(data.status === 3){status.innerHTML=`<button class="btn btn-danger" disabled> Rad qilindi </button>`}
+                comment.innerHTML= data.comment
+            })
+            .catch(error => console.log(error));
+
+    }
+</script>
 </body>
 </html>

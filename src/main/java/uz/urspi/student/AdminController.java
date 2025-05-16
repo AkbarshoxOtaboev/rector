@@ -65,10 +65,10 @@ public class AdminController {
     }
 
     @GetMapping("/application/check")
-    public String checkApplication(@RequestParam("number") String number, Model model) {
+    public ResponseEntity<?> checkApplication(@RequestParam("number") String number, Model model) {
         ApplicationViewDTO application = applicationService.findByUniqueNumber(number);
         model.addAttribute("application", application);
-        return "check";
+        return ResponseEntity.ok(application);
     }
     @GetMapping("/api/districts")
     @ResponseBody
